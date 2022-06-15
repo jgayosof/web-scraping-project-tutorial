@@ -67,3 +67,6 @@ connection.commit()
 for row in c.execute('SELECT * FROM revenue'):
     print(row)
 """
+
+# Genero CSV:
+tesla_revenue.to_csv('mydb.csv', index=False)
