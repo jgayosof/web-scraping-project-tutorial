@@ -11,6 +11,9 @@ html_data = requests.get(url).text
 
 requests.get(url).text
 
+soup = BeautifulSoup(html_data,"html.parser")
+# print(soup)
+
 tables = soup.find_all('table')
 
 for index, table in enumerate(tables):
@@ -35,14 +38,17 @@ tesla_revenue.head()
 """
 
 tesla_revenue = tesla_revenue[tesla_revenue['Revenue'] != ""]
-print(tesla_revenue)
+# print(tesla_revenue)
 
 records = tesla_revenue.to_records(index=False)
-print(records)
+# print(records)
+
+print(f"hay estos records : {len(records)}")
+
 
 # transformo array a lista
 list_of_tuples = list(records)
-print(list_of_tuples)
+# print(list_of_tuples)
 
 # Crea la base
 connection = sqlite3.connect('Tesla.db')
@@ -57,5 +63,7 @@ c.executemany('INSERT INTO revenue VALUES (?,?)', list_of_tuples)
 # Save (commit) the changes
 connection.commit()
 
+"""
 for row in c.execute('SELECT * FROM revenue'):
     print(row)
+"""
